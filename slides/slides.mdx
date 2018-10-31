@@ -48,71 +48,126 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 
 ---
 
-### Web Crawling
+```mdx Web Crawling
 
 |                      | Puppeteer | Cheerio |
 |----------------------|-----------|---------|
 |  classic HTML pages  |     X     |    X    |
-|       SPA pages      |     X     |         |
+|     SPA pages        |     X     |         |
+
+----
+* > 
+3 > simple html page
+4 > Single page application or Javascript rendered content
+```
 
 ---
 
-### UI Browser Testing
+```mdx UI Browser Testing
 
 |                 | Puppeteer | Cypress.io | Selenium |
 |-----------------|-----------|------------|:--------:|
 |      Chrome     |     X     |      X     |     X    |
 |     Firefox     |           |   future   |     X    |
-| Simulate mobile |           |            |     X    |
+| Simulate mobile |     *     |            |     X    |
 |   Real devices  |           |            |     X    |
+----
+* > 
+3 > 
+4 > 
+5 > *Puppeteer can use devtools simulation
+6 > you can use Sauce Labs
+```
 
 ---
 
-### Why not Selenium
+```mdx Why not Selenium
 
-* Puppeteer is faster and more reliable since it has direct communication with browser
-* Not all tests are device, browser depedent (markup)
-* More costly to mantain compared to Puppeteer
-* You need to use a different testing framework
+- Puppeteer is faster and more reliable 
+- Not all tests are device, browser dependent
+- More costly to mantain compared to Puppeteer
+- You need to use a different testing framework
+
+----
+* > 
+1 > since it has direct communication with browser
+2 > SEO, metatags testing
+3 > since they can be more flacky and slow
+4 > Protractor, NightWatch, WebDriver.IO
+```
 
 ---
 
-### Why not Cypress.io
+```mdx Why not Cypress.io
 
 * You need to use a different testing framework
 * Last time, I used, you could only intercept XMLHttpRequest
 * Less flexible (but it's documentation is awesome)
+----
+* > 
+1 > it has their own testing framework
+2 > so you can't intercept images
+3 > Since it's focused for testing
+```
 
 ---
 
-### So why use Puppeteer for testing?
+```mdx So why use Puppeteer for testing?
 
 1. you can use your current testing framework
-2. faster (headless, direct communication) and more reliable compared to normal selenium based tests
-3. powerful, you can intercept not only XMLHttpRequest, but as well images, and other requests
-4. flexible tool, you can used it for code coverage and performance testing
+2. faster (headless, direct communication) and more reliable*
+3. powerful, you can intercept not only XMLHttpRequest
+4. flexible tool, code coverage and performance testing...
+5. Modern api
+----
+* > 
+1 > You can use for example jest
+2 > * compared to normal selenium based tests
+3 > but as well images, and other requests
+4 > 
+5 > Async Wait
+```
 
 ---
 
-### When not to use?
+```mdx When not to use?
 
-1. For those tests that are device, browser dependent (CSS, markup)
-2. If already using Cypress.io, Puppeteer will probably not bring much value (expect for those especial cases)
+1. Device, browser dependent tests (CSS, markup)
+2. If already using Cypress.io*
+3. Documentation is good* but less examples online
+
+----
+* > 
+1 > use Selenium based tests instead
+2 > * expect for those especial cases
+3 > * Cypress docs are better (my personal opinion)
+```
+---
+
+```mdx Performance testing
+
+1. Can be combined with Lighthouse (for some degree)
+2. Can be used as a terminal script
+3. Can be used as server side service
+4. Can be used on the CI pipeline
+
+----
+* > 
+1 > https://github.com/GoogleChrome/puppeteer/tree/master/examples
+2 > since is a NodeJs library
+3 > If you server can use a chrome browser
+4 > For browser testing or performance testing
+```
 
 ---
 
-### Performance testing
-
-Can be combined with Lighthouse (for some degree)
-
----
-
-# Let's get hands dirty!
-(using puppeteer with jest)
+# Let's get our hands dirty!
+(puppeteer + jest = UI testing)
 
 ---
 
 # Easy way
+(to setup)
 
 ---
 
@@ -174,8 +229,12 @@ describe('Google', () => {
   code={require("!raw-loader!../demo/test/setup.js")}
   steps={[
     { notes: "Use ⬆️ and ⬇️ keys" },
+    { range: [9, 18], notes: "first export a setup function" },
     { lines: [1], notes: "Import puppeteer" },
-    { lines: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18], notes: "" }
+    { lines: [10], notes: "Launch the browser" },
+    { lines: [12], notes: "Save it, on the global so we can close it later" },
+    { lines: [12], notes: "Since Test Environments are sandboxed, we need somehow to connect to it on our tests" },
+    { lines: [15], notes: "Let's save the Web service endpoint to a file, so we can load it later" }
   ]}
 />
 
@@ -185,8 +244,10 @@ describe('Google', () => {
   title="teardown.js"
   code={require("!raw-loader!../demo/test/teardown.js")}
   steps={[
-    { lines: [1], notes: "Import puppeteer" },
-    { lines: [2], notes: "" }
+    { notes: "Use ⬆️ and ⬇️ keys" },
+    { range: [7, 11], notes: "first export a teardown function" },
+    { lines: [8], notes: "close the browser and connection" },
+    { lines: [10], notes: "remove Web service endpoint temporary file" }
   ]}
 />
 
@@ -196,8 +257,34 @@ describe('Google', () => {
   title="environment.js"
   code={require("!raw-loader!../demo/test/environment.js")}
   steps={[
-    { lines: [1], notes: "Import puppeteer" },
-    { lines: [2], notes: "" }
+    { notes: "Use ⬆️ and ⬇️ keys" },
+    { notes: "Let's start our Test Environment" },
+    { lines: [1], notes: "Import jest environment node" },
+    { lines: [4], notes: "Import puppeteer" },
+    { range: [9, 37], notes: "Export environment" },
+    { range: [14, 28], notes: "on setup" },
+    { range: [17, 19], notes: "Let's read Web service endpoint file" },
+    { range: [25, 27], notes: "Let's connect to puppeteer, and save it globally to our tests can use it" }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="basic.spec.js tests"
+  code={require("!raw-loader!../demo/test/basic.spec.js")}
+  steps={[
+    { notes: "Use ⬆️ and ⬇️ keys" }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="intercept.spec.js tests"
+  code={require("!raw-loader!../demo/test/intercept.spec.js")}
+  steps={[
+    { notes: "Use ⬆️ and ⬇️ keys" }
   ]}
 />
 
@@ -212,6 +299,7 @@ describe('Google', () => {
 - [egghead.io - jest + puppeteer course](https://egghead.io/courses/end-to-end-testing-with-google-s-puppeteer-and-jest)
 - [github/GoogleChrome/puppeteer/examples](https://github.com/GoogleChrome/puppeteer/tree/master/examples)
 - [github/GoogleChrome/lighthouse](https://github.com/GoogleChrome/lighthouse/blob/master/docs/puppeteer.md)
+- [michaljanaszek.com - test website performance with puppeteer](https://michaljanaszek.com/blog/test-website-performance-with-puppeteer)
 
 ---
 

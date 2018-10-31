@@ -6,7 +6,7 @@ const os = require('os');
 
 const DIR = path.join(os.tmpdir(), 'jest_puppeteer_global_setup');
 
-class PuppeteerEnvironment extends NodeEnvironment {
+module.exports = class PuppeteerEnvironment extends NodeEnvironment {
   constructor(config) {
     super(config);
   }
@@ -14,7 +14,10 @@ class PuppeteerEnvironment extends NodeEnvironment {
   async setup() {
     await super.setup();
 
-    const wsEndpoint = fs.readFileSync(path.join(DIR, 'wsEndpoint'), 'utf8');
+    const wsEndpoint = fs.readFileSync(
+      path.join(DIR, 'wsEndpoint'), 'utf8'
+    );
+
     if (!wsEndpoint) {
       throw new Error('wsEndpoint not found');
     }
