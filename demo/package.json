@@ -1,0 +1,16 @@
+{
+  "name": "london-nodejs-meetup-puppeteer",
+  "version": "1.0.0",
+  "description": "London NodeJs meetup puppeteer in action demo",
+  "main": "index.js",
+  "repository": "https://github.com/Fetz/london-nodejs-meetup-puppeteer",
+  "author": "Fetz",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "jest": "^23.6.0"
+  },
+  "scripts": {
+    "test": "jest ."
+  }
+}

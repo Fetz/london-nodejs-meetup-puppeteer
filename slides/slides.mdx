@@ -1,0 +1,221 @@
+import { CodeSurfer } from "mdx-deck-code-surfer"
+// import { swiss } from "mdx-deck/themes"
+// import dracula from "prism-react-renderer/themes/dracula"
+import { default as white } from "mdx-deck/themes"
+import nightOwl from "prism-react-renderer/themes/nightOwl"
+
+export { components } from "mdx-deck-code-surfer"
+export const theme = {
+  ...white,
+  codeSurfer: {
+    ...nightOwl,
+    showNumbers: false
+  }
+}
+
+## Puppeteer in action
+
+<img src={require("file-loader!./puppeteer-logo.png")} />
+
+---
+
+### What is this all about?
+
+Is a Google library that makes it simple to use Google Chrome DevTools Protocol
+
+---
+
+```mdx And what can I do with it?
+1. Web crawling
+2. UI/Browser testing
+3. Performance testing
+4. Code coverage
+5. Capture Images or PDFs
+6. Test Chrome extensions
+----
+* >
+1 > even SPA
+2 > Full or Headless
+3 > You can get the metrics you get from devtools
+4 > (both css and js)
+5 > you can use it to diffs manually or with Aplitools
+6 > yes even that
+```
+
+---
+
+# Let's dig deeper
+
+---
+
+### Web Crawling
+
+|                      | Puppeteer | Cheerio |
+|----------------------|-----------|---------|
+|  classic HTML pages  |     X     |    X    |
+|       SPA pages      |     X     |         |
+
+---
+
+### UI Browser Testing
+
+|                 | Puppeteer | Cypress.io | Selenium |
+|-----------------|-----------|------------|:--------:|
+|      Chrome     |     X     |      X     |     X    |
+|     Firefox     |           |   future   |     X    |
+| Simulate mobile |           |            |     X    |
+|   Real devices  |           |            |     X    |
+
+---
+
+### Why not Selenium
+
+* Puppeteer is faster and more reliable since it has direct communication with browser
+* Not all tests are device, browser depedent (markup)
+* More costly to mantain compared to Puppeteer
+* You need to use a different testing framework
+
+---
+
+### Why not Cypress.io
+
+* You need to use a different testing framework
+* Last time, I used, you could only intercept XMLHttpRequest
+* Less flexible (but it's documentation is awesome)
+
+---
+
+### So why use Puppeteer for testing?
+
+1. you can use your current testing framework
+2. faster (headless, direct communication) and more reliable compared to normal selenium based tests
+3. powerful, you can intercept not only XMLHttpRequest, but as well images, and other requests
+4. flexible tool, you can used it for code coverage and performance testing
+
+---
+
+### When not to use?
+
+1. For those tests that are device, browser dependent (CSS, markup)
+2. If already using Cypress.io, Puppeteer will probably not bring much value (expect for those especial cases)
+
+---
+
+### Performance testing
+
+Can be combined with Lighthouse (for some degree)
+
+---
+
+# Let's get hands dirty!
+(using puppeteer with jest)
+
+---
+
+# Easy way
+
+---
+
+```bash terminal
+yarn add --dev jest-puppeteer
+----
+* > https://jestjs.io/docs/en/puppeteer
+```
+
+---
+```json package.json
+{
+  "jest": {
+    "preset": "jest-puppeteer"
+  }
+}
+----
+* > https://jestjs.io/docs/en/puppeteer
+```
+---
+
+```js some.spec.js
+describe('Google', () => {
+  beforeAll(async () => {
+    await page.goto('https://google.com');
+  });
+
+  it('should display "google" text on page', async () => {
+    await expect(page).toMatch('google');
+  });
+});
+----
+* > https://jestjs.io/docs/en/puppeteer
+```
+---
+
+# The hard way
+(so you can use it in any other test environment)
+
+---
+```json package.json
+{
+  "jest": {
+    "globalSetup": "./test/setup.js",
+    "globalTeardown": "./test/teardown.js",
+    "testEnvironment": "./test/environment.js"
+  }
+}
+----
+* > https://jestjs.io/docs/en/puppeteer
+3 > launch puppeteer
+4 > close puppeteer
+5 > connect to previously connected puppeteer
+```
+---
+
+<CodeSurfer
+  title="setup.js"
+  code={require("!raw-loader!../demo/test/setup.js")}
+  steps={[
+    { notes: "Use ⬆️ and ⬇️ keys" },
+    { lines: [1], notes: "Import puppeteer" },
+    { lines: [9, 10, 11, 12, 13, 14, 15, 16, 17, 18], notes: "" }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="teardown.js"
+  code={require("!raw-loader!../demo/test/teardown.js")}
+  steps={[
+    { lines: [1], notes: "Import puppeteer" },
+    { lines: [2], notes: "" }
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="environment.js"
+  code={require("!raw-loader!../demo/test/environment.js")}
+  steps={[
+    { lines: [1], notes: "Import puppeteer" },
+    { lines: [2], notes: "" }
+  ]}
+/>
+
+---
+
+# Demo time
+
+---
+
+### Do you want to know more about puppeteer?
+
+- [egghead.io - jest + puppeteer course](https://egghead.io/courses/end-to-end-testing-with-google-s-puppeteer-and-jest)
+- [github/GoogleChrome/puppeteer/examples](https://github.com/GoogleChrome/puppeteer/tree/master/examples)
+- [github/GoogleChrome/lighthouse](https://github.com/GoogleChrome/lighthouse/blob/master/docs/puppeteer.md)
+
+---
+
+### [github.com/Fetz/london-nodejs-meetup-puppeteer](https://github.com/Fetz/london-nodejs-meetup-puppeteer)
+
+- [(demo source)](https://github.com/Fetz/london-nodejs-meetup-puppeteer/demo)
+- [(slides source)](https://github.com/Fetz/london-nodejs-meetup-puppeteer/slides)

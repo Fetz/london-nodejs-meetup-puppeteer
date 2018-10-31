@@ -1,0 +1,20 @@
+{
+  "name": "london-nodejs-meetup-puppeteer",
+  "version": "1.0.0",
+  "description": "London NodeJs meetup puppeteer in action slides",
+  "main": "index.js",
+  "repository": "https://github.com/Fetz/london-nodejs-meetup-puppeteer",
+  "author": "Fetz",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "file-loader": "^2.0.0",
+    "mdx-deck": "^1.7.7",
+    "mdx-deck-code-surfer": "^0.5.3",
+    "raw-loader": "^0.5.1"
+  },
+  "scripts": {
+    "build": "mdx-deck build slides.mdx",
+    "start": "mdx-deck slides.mdx"
+  }
+}
