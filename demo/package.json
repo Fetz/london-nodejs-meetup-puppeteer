@@ -8,9 +8,11 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "browser-sync": "^2.26.3",
     "jest": "^23.6.0"
   },
   "scripts": {
-    "test": "jest ."
+    "test": "jest .",
+    "start": "browser-sync start --server --serveStatic public"
   }
 }
