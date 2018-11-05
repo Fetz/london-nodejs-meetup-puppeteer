@@ -18,14 +18,14 @@
   <body>
 
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Company name</h5>
+      <h5 class="my-0 mr-md-auto font-weight-normal">Puppeteer demo page</h5>
       <nav class="my-2 my-md-0 mr-md-3">
         <a class="p-2 text-dark" href="#">Features</a>
         <a class="p-2 text-dark" href="#">Enterprise</a>
         <a class="p-2 text-dark" href="#">Support</a>
         <a class="p-2 text-dark" href="#">Pricing</a>
       </nav>
-      <a class="btn btn-outline-primary" href="#">Sign up</a>
+      <button class="btn btn-outline-primary" disabled>Sign up</button>
     </div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -40,14 +40,21 @@
             <h4 class="my-0 font-weight-normal">Free</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ mo</small></h1>
+            <h1 class="card-title pricing-card-title">
+              $0 <small class="text-muted">/ mo</small>
+            </h1>
             <ul class="list-unstyled mt-3 mb-4">
               <li>10 users included</li>
               <li>2 GB of storage</li>
               <li>Email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button>
+            <button
+              type="button"
+              class="btn btn-lg btn-block btn-outline-primary"
+              disabled>
+              Sign up for free
+            </button>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -55,14 +62,21 @@
             <h4 class="my-0 font-weight-normal">Pro</h4>
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ mo</small></h1>
+            <h1 class="card-title pricing-card-title">
+              $15 <small class="text-muted">/ mo</small>
+            </h1>
             <ul class="list-unstyled mt-3 mb-4">
               <li>20 users included</li>
               <li>10 GB of storage</li>
               <li>Priority email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Get started</button>
+            <button 
+              type="button" 
+              class="btn btn-lg btn-block btn-primary" 
+              disabled>
+                Get started
+            </button>
           </div>
         </div>
         <div class="card mb-4 shadow-sm">
@@ -77,7 +91,14 @@
               <li>Phone and email support</li>
               <li>Help center access</li>
             </ul>
-            <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+            <button
+              id="enterprise-btn"
+              type="button"
+              class="btn btn-lg btn-block btn-primary"
+              data-toggle="modal"
+              data-target="#exampleModal">
+                Contact us
+            </button>
           </div>
         </div>
       </div>
@@ -121,10 +142,43 @@
       </footer>
     </div>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/contact" method="post" id="contact-form">
+              <div class="form-group">
+                <label for="enterprise__email">Email address</label>
+                <input name="email" type="email" class="form-control" id="enterprise__email" aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <div class="form-group">
+                <label for="enterprise__details">Message</label>
+                <textarea name="details" class="form-control" id="enterprise__details" rows="3"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button id="enterprise__contact" type="button" class="btn btn-primary">Submit</button>
+          </div>
+          <div id="enterprise__error" class="alert alert-danger fade ml-3 mr-3" role="alert" style="display: none">
+            <strong>Ohh, man! Ohh, ohhh geez!! Ohh...</strong>Ohh... 
+          </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+          <div id="enterprise__success" class="alert alert-danger fade ml-3 mr-3" role="alert" style="display: none">
+            World peace achieved.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="vendor/jquery-slim.min.js"></script>
     <script src="vendor/popper.min.js"></script>
     <script src="vendor/bootstrap.min.js"></script>
@@ -134,6 +188,43 @@
         bg: '#55595c',
         fg: '#eceeef',
         text: 'Thumbnail'
+      });
+
+      document.getElementById('enterprise-btn').addEventListener('click', () => {
+        // simulate a pixel tracking :P
+        const image = new Image();
+        image.src = `/pixel-tracking?action=click&target=enterprise-btn&some-other-things=to-track&time=${Date.now()}`;
+      });
+
+      document.getElementById('enterprise__contact').addEventListener('click', async () => {
+        const form = document.getElementById('contact-form');
+
+        const body = Array.from(form.elements).reduce(
+          (acc, elem) => {
+            acc[elem.name] = elem.value;
+            return acc;
+          }
+          , {});
+        
+        try {
+          const result = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify(body) 
+          });
+
+          if (![200, 201].includes(result.status)) {
+            throw new Error('failed');
+          }
+
+          document.getElementById('enterprise__success').style.display = 'block';
+          document.getElementById('enterprise__success').classList.add('show');
+        } catch (error) {
+          document.getElementById('enterprise__error').style.display = 'block';
+          document.getElementById('enterprise__error').classList.add('show');
+        }
       });
     </script>
   </body>

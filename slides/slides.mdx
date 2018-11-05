@@ -19,6 +19,14 @@ export const theme = {
 
 ---
 
+## About me
+
+- FullStack Developer
+- https://twitter.com/FetzPt
+- https://github.com/Fetz
+
+---
+
 ### What is this all about?
 
 Is a Google library that makes it simple to use Google Chrome DevTools Protocol
@@ -32,6 +40,7 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 4. Code coverage
 5. Capture Images or PDFs
 6. Test Chrome extensions
+7. Make Client Side App render on the server
 ----
 * >
 1 > even SPA
@@ -40,25 +49,27 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 4 > (both css and js)
 5 > you can use it to diffs manually or with Aplitools
 6 > yes even that
+7 > Crawl the page and generate pre-rendered content
 ```
-
 ---
 
 # Let's dig deeper
+(and compare with some alternatives)
 
 ---
 
 ```mdx Web Crawling
 
-|                      | Puppeteer | Cheerio |
-|----------------------|-----------|---------|
-|  classic HTML pages  |     X     |    X    |
-|     SPA pages        |     X     |         |
+|                      | Puppeteer | Cheerio | JSDom |
+|----------------------|-----------|---------|-------|
+|  classic HTML pages  |     X     |    X    |   X   |
+|     SPA pages        |     X     |         |   *   |
 
 ----
 * > 
 3 > simple html page
 4 > Single page application or Javascript rendered content
+* > https://bit.ly/2PzVs5t
 ```
 
 ---
@@ -100,9 +111,9 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 
 ```mdx Why not Cypress.io
 
-* You need to use a different testing framework
-* Last time, I used, you could only intercept XMLHttpRequest
-* Less flexible (but it's documentation is awesome)
+- You need to use a different testing framework
+- Last time, I used, you could only intercept XMLHttpRequest
+- Less flexible (but it's documentation is awesome)
 ----
 * > 
 1 > it has their own testing framework
@@ -153,7 +164,7 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 
 ----
 * > 
-1 > https://github.com/GoogleChrome/puppeteer/tree/master/examples
+1 > https://bit.ly/2yPxqtC
 2 > since is a NodeJs library
 3 > If you server can use a chrome browser
 4 > For browser testing or performance testing
@@ -231,10 +242,10 @@ describe('Google', () => {
     { notes: "Use ⬆️ and ⬇️ keys" },
     { range: [9, 18], notes: "first export a setup function" },
     { lines: [1], notes: "Import puppeteer" },
-    { lines: [10], notes: "Launch the browser" },
-    { lines: [12], notes: "Save it, on the global so we can close it later" },
-    { lines: [12], notes: "Since Test Environments are sandboxed, we need somehow to connect to it on our tests" },
-    { lines: [15], notes: "Let's save the Web service endpoint to a file, so we can load it later" }
+    { range: [10, 12], notes: "Launch the browser" },
+    { lines: [14], notes: "Save it, on the global so we can close it later" },
+    { lines: [14], notes: "Since Test Environments are sandboxed, we need somehow to connect to it on our tests" },
+    { lines: [17], notes: "Let's save the Web service endpoint to a file, so we can load it later" }
   ]}
 />
 
@@ -270,11 +281,25 @@ describe('Google', () => {
 
 ---
 
+## Our test target
+
+<img src={require("file-loader!./demo.png")} />
+
+---
+
 <CodeSurfer
   title="basic.spec.js tests"
   code={require("!raw-loader!../demo/test/basic.spec.js")}
   steps={[
-    { notes: "Use ⬆️ and ⬇️ keys" }
+    { notes: "Use ⬆️ and ⬇️ keys" },
+    { notes: "Let's start simple, our first test" },
+    { lines: [1], notes: "get our browser from the global object" },
+    { range: [7, 17], notes: "let's create our page object" },
+    { range: [19, 56], notes: "and test our free tier" },
+    { range: [20, 23], notes: "first eval our elem" },
+    { range: [25, 55], notes: "then validate using jest inlineSnapshot" },
+    { range: [58, 95], notes: "then we do the same for pro tier" },
+    { range: [97, 138], notes: "and finally our last tier" }
   ]}
 />
 
@@ -284,26 +309,68 @@ describe('Google', () => {
   title="intercept.spec.js tests"
   code={require("!raw-loader!../demo/test/intercept.spec.js")}
   steps={[
-    { notes: "Use ⬆️ and ⬇️ keys" }
+    { notes: "Use ⬆️ and ⬇️ keys" },
+    { notes: "Now something more interactive and useful" },
+    { range: [23, 78], notes: "let's listen to some requests" },
+    { range: [24, 30], notes: "common stuff" },
+    { range: [32, 50], notes: "our first test" },
+    { range: [34, 44], notes: "lets wrap in a promise" },
+    { range: [38, 40], notes: "if is not what we are looking for" },
+    { lines: [42], notes: "if it is, resolve it" },
+    { lines: [46], notes: "now let's trigger the tracking" },
+    { lines: [48, 49], notes: "and then validate" },
+    { range: [52, 80], notes: "our second it's the same" },
+    { range: [61, 65], notes: "but we resolve with the search params" },
+    { range: [71, 78], notes: "so we can validate it" },
+    { range: [82, 132], notes: "and how about forms?" },
+    { range: [83, 95], notes: "let's do some work before the test" },
+    { range: [90, 94], notes: "wait for animation to finish" },
+    { range: [97, 128], notes: "now let's tackle the test" },
+    { range: [98, 112], notes: "let's spy the request" },
+    { range: [114, 127], notes: "fill the form" },
+    { range: [119, 124], notes: "by evaluate a code" },
+    { range: [127, 130], notes: "or using API provided" },
+    { range: [132, 137], notes: "let's submit and validate" },
+    { range: [146, 180], notes: "but would be nice to intercept things" },
+    { lines: [147], notes: "you only need one line to start"},
+    { range: [149, 162], notes: "and now you control all requests"},
+    { lines: [153], notes: "you can let it go"},
+    { range: [157, 161], notes: "make it successful"},
+    { range: [193, 200], notes: "or 404"}
   ]}
 />
 
 ---
 
 # Demo time
+<img src={require("file-loader!./demo-time.gif")} />
+
+---
+
+```mdx Troubleshooting
+
+1. tests are timing out too soon
+2. some interactions are failing or being ignored
+3. some tests are flacky when running in CI
+----
+* > 
+1 > increase your test framework timeouts e.g.: jest.setTimeout(time)
+2 > wait for animations to finish
+3 > run those tests with runInBand flag
+```
 
 ---
 
 ### Do you want to know more about puppeteer?
 
-- [egghead.io - jest + puppeteer course](https://egghead.io/courses/end-to-end-testing-with-google-s-puppeteer-and-jest)
-- [github/GoogleChrome/puppeteer/examples](https://github.com/GoogleChrome/puppeteer/tree/master/examples)
-- [github/GoogleChrome/lighthouse](https://github.com/GoogleChrome/lighthouse/blob/master/docs/puppeteer.md)
-- [michaljanaszek.com - test website performance with puppeteer](https://michaljanaszek.com/blog/test-website-performance-with-puppeteer)
+- egghead.io course: [https://bit.ly/2RzFXHM](https://egghead.io/courses/end-to-end-testing-with-google-s-puppeteer-and-jest)
+- more examples: [https://bit.ly/2PAboEL](https://github.com/GoogleChrome/puppeteer/tree/master/examples)
+- lighthouse example: [https://bit.ly/2yPxqtC](https://github.com/GoogleChrome/lighthouse/blob/master/docs/puppeteer.md)
+- website performance: [https://bit.ly/2CZJuv6](https://michaljanaszek.com/blog/test-website-performance-with-puppeteer)
 
 ---
 
 ### [github.com/Fetz/london-nodejs-meetup-puppeteer](https://github.com/Fetz/london-nodejs-meetup-puppeteer)
 
-- [(demo source)](https://github.com/Fetz/london-nodejs-meetup-puppeteer/demo)
-- [(slides source)](https://github.com/Fetz/london-nodejs-meetup-puppeteer/slides)
+- demo source: [https://bit.ly/2SM2jqU](https://github.com/Fetz/london-nodejs-meetup-puppeteer/demo)
+- slides source: [https://bit.ly/2JHv1p6](https://github.com/Fetz/london-nodejs-meetup-puppeteer/slides)

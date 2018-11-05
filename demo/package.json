@@ -9,10 +9,21 @@
   "private": true,
   "devDependencies": {
     "browser-sync": "^2.26.3",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3",
+    "puppeteer": "^1.10.0"
   },
   "scripts": {
-    "test": "jest .",
+    "test": "jest . --runInBand",
     "start": "browser-sync start --server --serveStatic public"
+  },
+  "jest": {
+    "verbose": true,
+    "globalSetup": "./test/setup.js",
+    "globalTeardown": "./test/teardown.js",
+    "testEnvironment": "./test/environment.js"
+  },
+  "dependencies": {
+    "pretty": "^2.0.0"
   }
 }
