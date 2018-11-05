@@ -1,55 +1,16 @@
-# Puppeteer
+# Puppeteer in Action
 
-The main idea is to talk about puppeteer (how it works), what you can do with it, and other alternatives to it and in the end show a code demo testing a page with jest + puppeteer
+Slides and demo code used for [London Node JS Meetup](https://meetup.com/en-AU/LNM-London-Node-JS-Meetup/events/255552353/).
 
-The structure of the presentation should be something like this:
+You can see the [slides here](https://fetz.github.io/london-nodejs-meetup-puppeteer/).
 
-- About me (with twitter & github url)
-- What is puppeteer?
-- What can you use for?
-  - scrapping (other alternatives cheerio)
-  - browser testing (other alternatives cypress, selenium)
-  - performance testing (other tools lighthouse and can be combined (still limit) with lighthouse)
-  - visual diff (can be manually or integrated with applitools)
-- Limitations of Puppeteer
-- Testing:
-  - When to use Puppeteer over Selenium?
-  - When to use Selenium over Puppeteer?
-  - Puppeter VS Cypress
-- Scrapping:
-  - When to use Puppeter
-  - When to use cheerio
-- Show a code demo with jest + puppeteer
-- Links to the repo
+## Demo code
 
-  
+On [demo folder](demo/) you can find the code for the tests and the demo page.
 
-About me
-What is puppeteer?
-  - (facade or wrapper aroud chrome devtools protocol)
-What can you use for?
-  - scrapping (other alternatives cheerio)
-  - browser testing (other alternatives cypress, selenium)
-  - performance testing (other tools lighthouse and can be combined (still limit) with lighthouse)
-  - visual diff (can be manually or integrated with applitools)
-Limitations of Puppeteer
-Testing:
-  - When to use Puppeteer over Selenium?
-  - When to use Selenium over Puppeteer?
-  - Puppeter VS Cypress
-Scrapping:
-  - When to use Puppeter
-  - When to use cheerio
-Code:
-  - example of testing with jest + puppeteer (interception request + interaction)
+There you can find the test target in the [public folder](demo/public) and the tests used for the slides in [test folder](demo/test).
 
-(use -> https://github.com/pomber/code-surfer)
-- where to learn more:
-  - puppeteer:
-    - https://github.com/GoogleChrome/puppeteer (repo)
-    - https://egghead.io/courses/end-to-end-testing-with-google-s-puppeteer-and-jest (video tutorial)
-  - cypress
-    - https://www.cypress.io/ (site)
-    - https://egghead.io/courses/end-to-end-testing-with-cypress (video tutorial)
-  - cheerio
-    - https://github.com/cheeriojs/cheerio (repo)
+## Slides code
+On [slides folder](slides/) you can find the code that generated the slides.
+
+We are using for the slides, [mdx-deck](https://github.com/jxnblk/mdx-deck) and [code surfer](https://github.com/pomber/code-surfer).

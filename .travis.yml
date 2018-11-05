@@ -1,0 +1,19 @@
+sudo: false
+language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+before_script: cd slides
+script:
+  - yarn
+  - yarn build
+deploy:
+  - provider: pages
+    skip-cleanup: true
+    keep-history: true
+    github-token: $GH_TOKEN
+    local-dir: dist
+    on:
+      branch: master

@@ -14,7 +14,7 @@
     "raw-loader": "^0.5.1"
   },
   "scripts": {
-    "build": "mdx-deck build slides.mdx",
+    "build": "mdx-deck build slides.mdx --no-html",
     "start": "mdx-deck slides.mdx"
   }
 }
