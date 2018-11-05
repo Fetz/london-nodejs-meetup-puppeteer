@@ -293,7 +293,7 @@ describe('Google', () => {
   steps={[
     { notes: "Use ⬆️ and ⬇️ keys" },
     { notes: "Let's start simple, our first test" },
-    { lines: [1], notes: "get our browser from the global object" },
+    { lines: [2], notes: "get our browser from the global object" },
     { range: [7, 17], notes: "let's create our page object" },
     { range: [19, 56], notes: "and test our free tier" },
     { range: [20, 23], notes: "first eval our elem" },
@@ -351,7 +351,7 @@ describe('Google', () => {
 
 1. tests are timing out too soon
 2. some interactions are failing or being ignored
-3. some tests are flacky when running in CI
+3. some tests are flaky when running in CI
 ----
 * > 
 1 > increase your test framework timeouts e.g.: jest.setTimeout(time)
