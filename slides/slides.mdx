@@ -38,7 +38,7 @@ export const theme = {
 
 ### What is this all about?
 
-Is a Google library that makes it simple to use Google Chrome DevTools Protocol
+It's a Google library that makes it simple to use Google Chrome DevTools Protocol
 
 ---
 
@@ -56,7 +56,7 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 2 > Full or Headless
 3 > You can get the metrics you get from devtools
 4 > (both css and js)
-5 > you can use it to diffs manually or with Aplitools
+5 > you can use it to diff screenshots manually or with Aplitools
 6 > yes even that
 7 > Crawl the page and generate pre-rendered content
 ```
@@ -105,14 +105,14 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 
 - Puppeteer is faster and more reliable 
 - Not all tests are device, browser dependent
-- More costly to mantain compared to Puppeteer
+- More costly to maintain compared to Puppeteer
 - You need to use a different testing framework
 
 ----
 * > 
 1 > since it has direct communication with browser
 2 > SEO, metatags testing
-3 > since they can be more flacky and slow
+3 > since they can be more flacky and slower
 4 > Protractor, NightWatch, WebDriver.IO
 ```
 
@@ -127,7 +127,7 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 * > 
 1 > it has their own testing framework
 2 > so you can't intercept images
-3 > Since it's focused for testing
+3 > Since it's focused on functional testing
 ```
 
 ---
@@ -142,10 +142,10 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 ----
 * > 
 1 > You can use for example jest
-2 > * compared to normal selenium based tests
-3 > but as well images, and other requests
-4 > 
-5 > Async Wait
+2 > * compared to normal Selenium based tests
+3 > but images as well, and other requests
+4 > and other tools in the DevTools suite
+5 > Async Await
 ```
 
 ---
@@ -153,20 +153,20 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 ```mdx When not to use?
 
 1. Device, browser dependent tests (CSS, markup)
-2. If already using Cypress.io*
-3. Documentation is good* but less examples online
+2. If you're already using Cypress.io*
+3. Documentation is good* but has less examples online
 
 ----
 * > 
 1 > use Selenium based tests instead
-2 > * expect for those especial cases
+2 > * except for those special cases
 3 > * Cypress docs are better (my personal opinion)
 ```
 ---
 
 ```mdx Performance testing
 
-1. Can be combined with Lighthouse (for some degree)
+1. Can be combined with Lighthouse (to some degree)
 2. Can be used as a terminal script
 3. Can be used as server side service
 4. Can be used on the CI pipeline
@@ -175,7 +175,7 @@ Is a Google library that makes it simple to use Google Chrome DevTools Protocol
 * > 
 1 > https://bit.ly/2yPxqtC
 2 > since is a NodeJs library
-3 > If you server can use a chrome browser
+3 > https://pptraas.com (if you server can run a chrome browser)
 4 > For browser testing or performance testing
 ```
 
@@ -305,7 +305,7 @@ describe('Google', () => {
     { lines: [2], notes: "get our browser from the global object" },
     { range: [7, 17], notes: "let's create our page object" },
     { range: [19, 56], notes: "and test our free tier" },
-    { range: [20, 23], notes: "first eval our elem" },
+    { range: [20, 23], notes: "first eval our element" },
     { range: [25, 55], notes: "then validate using jest inlineSnapshot" },
     { range: [58, 95], notes: "then we do the same for pro tier" },
     { range: [97, 138], notes: "and finally our last tier" }
@@ -324,11 +324,11 @@ describe('Google', () => {
     { range: [24, 30], notes: "common stuff" },
     { range: [32, 50], notes: "our first test" },
     { range: [34, 44], notes: "lets wrap in a promise" },
-    { range: [38, 40], notes: "if is not what we are looking for" },
+    { range: [38, 40], notes: "if it's not what we are looking for" },
     { lines: [42], notes: "if it is, resolve it" },
     { lines: [46], notes: "now let's trigger the tracking" },
     { lines: [48, 49], notes: "and then validate" },
-    { range: [52, 80], notes: "our second it's the same" },
+    { range: [52, 80], notes: "our second is the same" },
     { range: [61, 65], notes: "but we resolve with the search params" },
     { range: [71, 78], notes: "so we can validate it" },
     { range: [82, 132], notes: "and how about forms?" },
@@ -337,13 +337,13 @@ describe('Google', () => {
     { range: [97, 128], notes: "now let's tackle the test" },
     { range: [98, 112], notes: "let's spy the request" },
     { range: [114, 127], notes: "fill the form" },
-    { range: [119, 124], notes: "by evaluate a code" },
+    { range: [119, 124], notes: "by evaluating a function" },
     { range: [127, 130], notes: "or using API provided" },
     { range: [132, 137], notes: "let's submit and validate" },
-    { range: [146, 180], notes: "but would be nice to intercept things" },
-    { lines: [147], notes: "you only need one line to start"},
+    { range: [146, 180], notes: "but it would be nice to intercept things" },
+    { lines: [147], notes: "you only need one liner to start"},
     { range: [149, 162], notes: "and now you control all requests"},
-    { lines: [153], notes: "you can let it go"},
+    { lines: [153], notes: "you can let it passthrough"},
     { range: [157, 161], notes: "make it successful"},
     { range: [193, 200], notes: "or 404"}
   ]}
